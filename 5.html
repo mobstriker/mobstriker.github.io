@@ -5,18 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Editing Page</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
-  <script>
-    function regenerateVideo() {
-      const adjustments = document.getElementById("adjustments").value;
-      if (adjustments) {
-        alert("Regenerating video with the following adjustments: " + adjustments);
-        // Here you would add the logic to regenerate the video based on the adjustments
-        // For example, you might call an API to generate the new video
-      } else {
-        alert("Please enter some adjustments before regenerating.");
-      }
-    }
-  </script>
   <style type="text/tailwindcss">
     @layer base {
       :root {
@@ -51,14 +39,16 @@
           Your browser does not support the video tag.
         </video>
       </div>
-      <div class="mb-6">
-        <input id="adjustments" type="text" placeholder="Enter changes or adjustments" class="w-full p-2 rounded-md border border-input focus:outline-none focus:ring focus:ring-primary" />
-      </div>
-      <div class="flex justify-between mb-6">
-        <button onclick="regenerateVideo()" class="bg-primary text-primary-foreground hover:bg-primary/80 py-2 px-4 rounded-md transition duration-300 ease-in-out">Re-generate</button>
-        <a href="4.html" class="bg-secondary text-secondary-foreground hover:bg-secondary/80 py-2 px-4 rounded-md transition duration-300 ease-in-out">Back to Results Page</a>
-        <a href="6.html" class="bg-primary text-primary-foreground hover:bg-primary/80 py-2 px-4 rounded-md transition duration-300 ease-in-out">Export</a>
-      </div>
+      <form id="regenerate-form" method="POST" action="/regenerate-video">
+        <div class="mb-6">
+          <input id="adjustments" name="adjustments" type="text" placeholder="Enter changes or adjustments" class="w-full p-2 rounded-md border border-input focus:outline-none focus:ring focus:ring-primary" />
+        </div>
+        <div class="flex justify-between mb-6">
+          <button type="submit" class="bg-primary text-primary-foreground hover:bg-primary/80 py-2 px-4 rounded-md transition duration-300 ease-in-out">Re-generate</button>
+          <a href="4.html" class="bg-secondary text-secondary-foreground hover:bg-secondary/80 py-2 px-4 rounded-md transition duration-300 ease-in-out">Back to Results Page</a>
+          <a href="6.html" class="bg-primary text-primary-foreground hover:bg-primary/80 py-2 px-4 rounded-md transition duration-300 ease-in-out">Export</a>
+        </div>
+      </form>
     </div>
   </div>
 </body>
