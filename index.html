@@ -47,6 +47,40 @@
           },
         },
       }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('generate-video').addEventListener('click', async () => {
+          const script = document.getElementById('script').value;
+          const prompts = document.getElementById('additional-prompts').value;
+          const videoLength = document.getElementById('video-length').value;
+          const videoStyle = document.getElementById('video-style').value;
+
+          // Backend URL (your Glitch URL)
+          const backendURL = 'https://sincere-learned-seahorse.glitch.me/generate-video';
+
+          // Sending data to the backend
+          const response = await fetch(backendURL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              script,
+              prompts,
+              videoLength,
+              videoStyle
+            })
+          });
+
+          const data = await response.json();
+          if (response.ok) {
+            // Handle the response (e.g., show a success message or redirect to a new page)
+            alert("Video generated successfully! Check it out: " + data.videoURL);
+          } else {
+            alert("Error generating video: " + data.message);
+          }
+        });
+      });
     </script>
     <style type="text/tailwindcss">
       @layer base {
@@ -129,7 +163,7 @@
           <option value="other">Other</option>
         </select>
        
-        <button id="generate-video" class="bg-primary text-primary-foreground hover:bg-primary/80 mt-4 py-2 px-4 rounded-md w-full transition duration-300 ease-in-out transform hover:scale-105" onclick="window.location.href='2.html'">Generate Video</button>
+        <button id="generate-video" class="bg-primary text-primary-foreground hover:bg-primary/80 mt-4 py-2 px-4 rounded-md w-full transition duration-300 ease-in-out transform hover:scale-105">Generate Video</button>
        
         <div class="mt-6 text-center">
           <img aria-hidden="true" alt="video-creation" src="https://openui.fly.dev/openui/300x200.svg?text=🎥" />
