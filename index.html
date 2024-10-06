@@ -49,7 +49,8 @@
       }
 
       document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById('generate-video').addEventListener('click', async () => {
+        document.getElementById('generate-video').addEventListener('click', async (e) => {
+          e.preventDefault();  // Prevent default form submission behavior
           const script = document.getElementById('script').value;
           const prompts = document.getElementById('additional-prompts').value;
           const videoLength = document.getElementById('video-length').value;
@@ -72,12 +73,11 @@
             })
           });
 
-          const data = await response.json();
           if (response.ok) {
-            // Handle the response (e.g., show a success message or redirect to a new page)
-            alert("Video generated successfully! Check it out: " + data.videoURL);
+            // Redirect to 2.py after successfully generating video
+            window.location.href = "2.py";
           } else {
-            alert("Error generating video: " + data.message);
+            alert("Error generating video. Please try again.");
           }
         });
       });
